@@ -3056,6 +3056,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3067,12 +3068,14 @@ __webpack_require__.r(__webpack_exports__);
         player_country: '',
         player_spatiality: ''
       },
-      user: User.id(),
       eForm: {
-        id: []
+        game: this.$route.params.id,
+        user: User.id(),
+        user_player: []
       },
       game_id: this.$route.params.id,
-      errors: {}
+      errors: {},
+      eFormErrors: {}
     };
   },
   methods: {
@@ -3108,14 +3111,24 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     eleven: function eleven() {
-      axios.post('/api/user/eleven', [this.user, this.eform]).then(function (res) {
-        return console.log(res);
+      var _this4 = this;
+
+      axios.post('/api/user/eleven', this.eForm).then(function (res) {
+        if (res) {
+          $('#addPlayer').modal('hide');
+          Toast.fire({
+            icon: 'success',
+            title: 'Your Super Eleven Created:)'
+          });
+
+          _this4.players(_this4.$route.params.id);
+        }
       })["catch"](function (error) {
-        return console.log(error.response.data);
+        return _this4.eFormErrors = error.response.data.errors;
       });
     },
     removePlayer: function removePlayer(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       Swal.fire({
         title: 'Are you sure?',
@@ -3127,7 +3140,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, remove it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios.post('/api/player/' + id, _this4.game_id).then(function (res) {
+          axios.post('/api/player/' + id, _this5.game_id).then(function (res) {
             if (res) {
               Toast.fire({
                 icon: 'success',
@@ -3136,7 +3149,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
 
-          _this4.players(_this4.$route.params.id);
+          _this5.players(_this5.$route.params.id);
         }
       });
     }
@@ -67385,66 +67398,76 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "form-group" },
-                      _vm._l(_vm.gamePlayers, function(player) {
-                        return _c(
-                          "div",
-                          { key: player.id, staticClass: "form-check" },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
+                      [
+                        _vm._l(_vm.gamePlayers, function(player) {
+                          return _c(
+                            "div",
+                            { key: player.id, staticClass: "form-check" },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.eForm.user_player,
+                                    expression: "eForm.user_player"
+                                  }
+                                ],
+                                staticClass: "form-check-input",
+                                attrs: { type: "checkbox", checked: "checked" },
+                                domProps: {
                                   value: player.id,
-                                  expression: "player.id"
-                                }
-                              ],
-                              staticClass: "form-check-input",
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                checked: Array.isArray(player.id)
-                                  ? _vm._i(player.id, null) > -1
-                                  : player.id
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = player.id,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          player,
-                                          "id",
-                                          $$a.concat([$$v])
-                                        )
+                                  checked: Array.isArray(_vm.eForm.user_player)
+                                    ? _vm._i(_vm.eForm.user_player, player.id) >
+                                      -1
+                                    : _vm.eForm.user_player
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.eForm.user_player,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = player.id,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.eForm,
+                                            "user_player",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.eForm,
+                                            "user_player",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
                                     } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          player,
-                                          "id",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
+                                      _vm.$set(_vm.eForm, "user_player", $$c)
                                     }
-                                  } else {
-                                    _vm.$set(player, "id", $$c)
                                   }
                                 }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("label", { staticClass: "form-check-label" }, [
-                              _vm._v(_vm._s(player.name))
+                              }),
+                              _vm._v(" "),
+                              _c("label", { staticClass: "form-check-label" }, [
+                                _vm._v(_vm._s(player.name))
+                              ])
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _vm.eFormErrors.user_player
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.eFormErrors.user_player[0]))
                             ])
-                          ]
-                        )
-                      }),
-                      0
+                          : _vm._e()
+                      ],
+                      2
                     )
                   ]),
                   _vm._v(" "),

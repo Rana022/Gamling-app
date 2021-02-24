@@ -108,9 +108,10 @@
       <div class="modal-body">
         <div class="form-group">
                         <div class="form-check" v-for="player in gamePlayers" :key="player.id">
-                          <input class="form-check-input" type="checkbox" v-model="player.id">
+                          <input class="form-check-input" type="checkbox" :value="player.id" v-model="eForm.user_player" checked="checked">
                           <label class="form-check-label">{{player.name}}</label>
                         </div>
+                          <small class="text-danger" v-if="eFormErrors.user_player">{{eFormErrors.user_player[0]}}</small>
                       </div>
         
       </div>
@@ -138,12 +139,14 @@
               player_country: '',
               player_spatiality: ''
             },
-            user: User.id(),
             eForm:{
-              id: []
+              game : this.$route.params.id,
+              user: User.id(),
+              user_player: []
             },
             game_id : this.$route.params.id,
-            errors:{}
+            errors:{},
+            eFormErrors:{}
 
         }
         },
@@ -171,9 +174,18 @@
                      .then(res => this.gamePlayers = res.data.data)
             },
             eleven(){
-              axios.post('/api/user/eleven', [this.user, this.eform])
-                   .then(res => console.log(res))
-                   .catch(error => console.log(error.response.data))
+              axios.post('/api/user/eleven', this.eForm)
+                   .then(res => {
+                     if(res){
+                       $('#addPlayer').modal('hide')
+                       Toast.fire({
+                  icon: 'success',
+                  title: 'Your Super Eleven Created:)'
+              })
+               this.players(this.$route.params.id)
+                     }
+                   })
+                   .catch(error => this.eFormErrors = error.response.data.errors)
             },
 
             removePlayer(id){

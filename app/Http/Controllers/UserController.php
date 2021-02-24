@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use App\Http\Resources\Game\GameResource;
 use App\Http\Resources\User\UserResource;
@@ -28,9 +29,13 @@ class UserController extends Controller
        return PlayerResource::collection($user->players);
     }
     public function addEleven(Request $request)
-    {
-        $user = User::where('id', $request->user)->get();
-        $user->players()->attach($request->id);
+    {   
+        $request->validate([
+            "user_player"    => "required|array|min:11|max:11"
+        ]);
+        $user = User::find($request->user);
+        $user->games()->sync($request->game);
+        $user->players()->sync($request->user_player);
     }
 
     /**
