@@ -35,10 +35,7 @@ const Toast = Swal.mixin({
 })
 window.Toast = Toast
 
-// Vue.component('Sidebar', require('./components/Sidebar.vue').default)
-// Vue.component('Topbar', require('./components/Topbar.vue').default)
-import Topbar from './components/Topbar.vue'
-import Sidebar from './components/Sidebar.vue'
+import Root from './components/Root.vue'
 //router
 const router = new VueRouter({
     mode: 'history',
@@ -50,7 +47,15 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    components:{Topbar, Sidebar},
+    data:{
+       authUser:{
+         name:'rana',
+         role:''
+       }
+    },
+    methods:{
+
+    },
+    components:{Root},
     router
-    
 });
