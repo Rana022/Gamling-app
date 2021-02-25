@@ -2169,6 +2169,26 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Topbar: _Topbar_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     Sidebar: _Sidebar_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  data: function data() {
+    return {
+      authuser_id: User.id(),
+      authUser: {}
+    };
+  },
+  methods: {
+    user: function user() {
+      var _this = this;
+
+      axios.get('/api/users/' + this.authuser_id).then(function (res) {
+        return _this.authUser = res.data.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    if (User.id()) {
+      this.user();
+    }
   }
 });
 
@@ -65732,7 +65752,19 @@ var render = function() {
       _c("Sidebar"),
       _vm._v(" "),
       _c("div", { staticClass: "content-wrapper" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "content-header" }, [
+          _c("div", { staticClass: "container-fluid" }, [
+            _c("div", { staticClass: "row mb-2" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("h1", { staticClass: "m-0 text-dark" }, [
+                  _vm._v(_vm._s(_vm.authUser.name))
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "content" }, [_c("router-view")], 1)
       ])
@@ -65745,24 +65777,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row mb-2" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Some thing")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Starter Page")
-              ])
-            ])
-          ])
+    return _c("div", { staticClass: "col-sm-6" }, [
+      _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Starter Page")
         ])
       ])
     ])

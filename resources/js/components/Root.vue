@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Some thing</h1>
+            <h1 class="m-0 text-dark">{{authUser.name}}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -41,10 +41,28 @@
 import Topbar from './Topbar.vue'
 import Sidebar from './Sidebar.vue'
 export default {
-    components:{
+  components:{
         Topbar,
         Sidebar
-         }
-    
+         },
+  data(){
+    return{
+      authuser_id: User.id(),
+      authUser:{}
+
+    }
+  },
+  methods:{
+    user(){
+      axios.get('/api/users/' + this.authuser_id)
+           .then(res => this.authUser = res.data.data)
+    }
+  },
+  mounted(){
+    if(User.id()){
+      this.user()
+    }
+  }
+
 }
 </script>
