@@ -5,7 +5,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <Sidebar></Sidebar>
+  <Sidebar v-bind:authUser="authUser"></Sidebar>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       
@@ -29,7 +29,7 @@
 
     <!-- Main content -->
     <div class="content">
-        <router-view></router-view>
+        <router-view v-bind:authUser="authUser"></router-view>
     </div>
     <!-- /.content -->
  

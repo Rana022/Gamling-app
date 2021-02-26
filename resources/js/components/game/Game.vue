@@ -8,7 +8,7 @@
               <div class="card-header">
                 <h3 class="card-title">Matches</h3>
                 <div class="text-right">
-                <button type="button" @click.prevent="dates" class="btn btn-info btn-small" data-toggle="modal" data-target="#createGame" >Create Match Date</button>
+                <button v-if="authUser.role === 'author'" type="button" @click.prevent="dates" class="btn btn-info btn-small" data-toggle="modal" data-target="#createGame" >Create Match</button>
               </div>
               </div>
               
@@ -29,7 +29,7 @@
                       <td>
                           <router-link :to="'/player/' + game.id" class="btn btn-small btn-primary"><i class="fas fa-chess-knight"></i></router-link>
                           <router-link :to="'/user/' + game.id" class="btn btn-small btn-success"><i class="fas fa-users"></i></router-link>
-                          <button class="btn btn-small btn-danger" @click.prevent="deleteGame(game.id)"><i class="fas fa-trash-alt"></i></button>
+                          <button v-if="authUser.role === 'author'" class="btn btn-small btn-danger" @click.prevent="deleteGame(game.id)"><i class="fas fa-trash-alt"></i></button>
                       </td>
                     </tr>
                   </tbody>
@@ -85,6 +85,7 @@
 
 <script>
     export default {
+      props: ['authUser'],
         data(){
         return{
             dateGames:{},

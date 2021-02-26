@@ -8,8 +8,8 @@
               <div class="card-header">
                 <h3 class="card-title">Players</h3>
                 <div class="text-right">
-                  <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#addPlayer">Add 11</button>
-                <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createPlayer" @click="allGames">Add Player</button>
+                  <button v-if="authUser.role === 'user'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#addPlayer">Add 11</button>
+                <button v-if="authUser.role === 'author'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createPlayer" @click="allGames">Add Player</button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -30,7 +30,7 @@
                       <td>{{player.country}}</td>
                       <td>
                           <router-link :to="'/playerdetails/' + player.id" class="btn btn-small btn-primary"><i class="fas fa-id-card"></i></router-link>
-                          <button class="btn btn-small btn-danger" @click.prevent="removePlayer(player.id)"><i class="fas fa-trash-alt"></i></button>
+                          <button v-if="authUser.role === 'author'" class="btn btn-small btn-danger" @click.prevent="removePlayer(player.id)"><i class="fas fa-trash-alt"></i></button>
                       </td>
                     </tr>
                   </tbody>
@@ -129,6 +129,7 @@
 
 <script>
     export default {
+      props:['authUser'],
         data(){
         return{
             gamePlayers:{},

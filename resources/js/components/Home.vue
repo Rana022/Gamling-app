@@ -6,73 +6,12 @@
             
       <div class="container-fluid">
         <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
-                <span class="info-box-number">
-                  10
-                  <small>%</small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
-                <span class="info-box-number">760</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
-                <span class="info-box-number">2,000</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
-
+        <Boxinfo></Boxinfo>
         <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Dates of match</h3>
-                <div class="text-right">
-                <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createDate" >Create Match Date</button>
+                <div class="text-right" v-if="authUser.role === 'author'">
+                <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createDate" ><i class="fas fa-calendar-alt"></i></button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -90,7 +29,7 @@
                       <td>{{index+1}}</td>
                       <td>{{date.date | myTime}}</td>
                       <td><router-link :to="'/game/' + date.id" class="btn btn-small btn-primary">view matches</router-link>
-                      <button type="button" @click.prevent="deleteDate(date.id)" class="btn btn-small btn-danger">Remove</button>
+                      <button v-if="authUser.role === 'author'" type="button" @click.prevent="deleteDate(date.id)" class="btn btn-small btn-danger">Remove</button>
                       </td>
                     </tr>
                   </tbody>
@@ -132,7 +71,10 @@
 </template>
 
 <script>
+import Boxinfo from './game/Boxinfo.vue'
     export default {
+      props: ['authUser'],
+      components:{Boxinfo},
       data(){
         return{
           dates:{

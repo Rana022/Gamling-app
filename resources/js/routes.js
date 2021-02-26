@@ -9,7 +9,6 @@ let User = require('./components/game/Participant.vue').default
 let Eleven = require('./components/game/Eleven.vue').default
 let Playerdetails = require('./components/game/Playerdetails.vue').default
 let Creatematch = require('./components/author/Creatematch.vue').default
-let a = require('./components/ExampleComponent.vue').default
 
 export const routes = [
   { path: '/', component: Home },
@@ -18,7 +17,6 @@ export const routes = [
     { path: '/register', component: Register },
     { path: '/forget', component: Forget },
     { path: '/logout', component: Logout },
-    { path: '/a', component: a },
     { path: '/game/:id', component: Game },
     { path: '/player/:id', component: Player },
     { path: '/playerdetails/:id', component: Playerdetails },

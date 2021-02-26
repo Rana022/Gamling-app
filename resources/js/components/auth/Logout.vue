@@ -9,6 +9,7 @@
                   title: 'Successfully Logout'
               })
               this.$router.push({path: '/'})
+              location.reload();
         }
     }
 </script>
