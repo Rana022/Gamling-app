@@ -2046,25 +2046,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2194,8 +2175,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -2632,23 +2611,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      schedule: '',
+      games: '',
+      participants: ''
+    };
+  },
+  methods: {
+    date: function date() {
+      var _this = this;
+
+      axios.get('/api/dates').then(function (res) {
+        return _this.schedule = res.data.data.length;
+      });
+    },
+    game: function game() {
+      var _this2 = this;
+
+      axios.get('/api/allgames').then(function (res) {
+        return _this2.games = res.data.data.length;
+      });
+    },
+    participant: function participant() {
+      var _this3 = this;
+
+      axios.get('/api/users').then(function (res) {
+        return _this3.participants = res.data.data.length;
+      });
+    }
+  },
+  created: function created() {
+    this.date();
+    this.game();
+    this.participant();
+  }
+});
 
 /***/ }),
 
@@ -2663,6 +2662,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2964,6 +2974,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2998,6 +3018,86 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -65616,21 +65716,7 @@ var render = function() {
       _vm._v(" "),
       _c("Sidebar", { attrs: { authUser: _vm.authUser } }),
       _vm._v(" "),
-      _c("div", { staticClass: "content-wrapper" }, [
-        _c("div", { staticClass: "content-header" }, [
-          _c("div", { staticClass: "container-fluid" }, [
-            _c("div", { staticClass: "row mb-2" }, [
-              _c("div", { staticClass: "col-sm-6" }, [
-                _c("h1", { staticClass: "m-0 text-dark" }, [
-                  _vm._v(_vm._s(_vm.authUser.name))
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
-          ])
-        ]),
-        _vm._v(" "),
+      _c("div", { staticClass: "content-wrapper mt-3" }, [
         _c(
           "div",
           { staticClass: "content" },
@@ -65642,24 +65728,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6" }, [
-      _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-        _c("li", { staticClass: "breadcrumb-item" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "breadcrumb-item active" }, [
-          _vm._v("Starter Page")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -66588,78 +66657,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12 col-md-4" }, [
+      _c("div", { staticClass: "info-box" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "info-box-content" }, [
+          _c("span", { staticClass: "info-box-text" }, [
+            _vm._v("Active Schedules")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "info-box-number" }, [
+            _vm._v("\n              " + _vm._s(_vm.schedule) + "\n            ")
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "clearfix hidden-md-up" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-12 col-md-4" }, [
+      _c("div", { staticClass: "info-box mb-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "info-box-content" }, [
+          _c("span", { staticClass: "info-box-text" }, [
+            _vm._v("Active Games")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "info-box-number" }, [
+            _vm._v(_vm._s(_vm.games))
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-12 col-md-4" }, [
+      _c("div", { staticClass: "info-box mb-3" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _c("div", { staticClass: "info-box-content" }, [
+          _c("span", { staticClass: "info-box-text" }, [
+            _vm._v("Participants")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "info-box-number" }, [
+            _vm._v(_vm._s(_vm.participants))
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-        _c("div", { staticClass: "info-box" }, [
-          _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
-            _c("i", { staticClass: "fas fa-cog" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [
-              _vm._v("CPU Traffic")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [
-              _vm._v("\n              10\n              "),
-              _c("small", [_vm._v("%")])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-        _c("div", { staticClass: "info-box mb-3" }, [
-          _c("span", { staticClass: "info-box-icon bg-danger elevation-1" }, [
-            _c("i", { staticClass: "fas fa-thumbs-up" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [_vm._v("Likes")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [_vm._v("41,410")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "clearfix hidden-md-up" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-        _c("div", { staticClass: "info-box mb-3" }, [
-          _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
-            _c("i", { staticClass: "fas fa-shopping-cart" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [_vm._v("Sales")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [_vm._v("760")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-        _c("div", { staticClass: "info-box mb-3" }, [
-          _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
-            _c("i", { staticClass: "fas fa-users" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [
-              _vm._v("New Members")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [_vm._v("2,000")])
-          ])
-        ])
-      ])
+    return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
+      _c("i", { staticClass: "fas fa-calendar-alt" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
+      _c("i", { staticClass: "fas fa-dice" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
+      _c("i", { staticClass: "fas fa-users" })
     ])
   }
 ]
@@ -66691,40 +66763,82 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body p-0" }, [
-            _c("table", { staticClass: "table table-condensed" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.myEleven, function(player, index) {
-                  return _c("tr", { key: player.id }, [
-                    _c("td", [_vm._v(_vm._s(index + 1))]),
+          _c(
+            "div",
+            { staticClass: "card-body p-0" },
+            [
+              _vm._l(_vm.myEleven, function(player, index) {
+                return _c(
+                  "div",
+                  {
+                    key: player.id,
+                    staticClass: "data-con py-1 px-5 d-md-none"
+                  },
+                  [
+                    _c("strong", [_vm._v(_vm._s(index + 1) + ".")]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(player.name))]),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(player.country))]),
+                    _c("span", [_vm._v(_vm._s(player.name))]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(player.country))]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
                     _vm._v(" "),
                     _c(
-                      "td",
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-small btn-primary",
-                            attrs: { to: "" }
-                          },
-                          [_vm._v("Details")]
-                        )
-                      ],
-                      1
+                      "router-link",
+                      {
+                        staticClass: "btn btn-small btn-primary",
+                        attrs: { to: "" }
+                      },
+                      [_vm._v("Details")]
                     )
-                  ])
-                }),
-                0
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table table-condensed d-none d-md-block" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.myEleven, function(player, index) {
+                      return _c("tr", { key: player.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(player.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(player.country))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-small btn-primary",
+                                attrs: { to: "" }
+                              },
+                              [_vm._v("Details")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ]
               )
-            ])
-          ])
+            ],
+            2
+          )
         ])
       ])
     ])
@@ -67130,42 +67244,81 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body p-0" }, [
-            _c("table", { staticClass: "table table-condensed" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.gameUsers, function(user, index) {
-                  return _c("tr", { key: user.id }, [
-                    _c("td", [_vm._v(_vm._s(index + 1))]),
+          _c(
+            "div",
+            { staticClass: "card-body p-0" },
+            [
+              _vm._l(_vm.gameUsers, function(user, index) {
+                return _c(
+                  "div",
+                  { key: user.id, staticClass: "data-con py-1 px-5 d-md-none" },
+                  [
+                    _c("strong", [_vm._v(_vm._s(index + 1) + ".")]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(user.phone_number))]),
+                    _c("span", [_vm._v(_vm._s(user.name))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(user.email))]),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(user.phone_number))]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
                     _vm._v(" "),
                     _c(
-                      "td",
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-small btn-success",
-                            attrs: { to: "/eleven/" + user.id }
-                          },
-                          [_vm._v("his/her 11")]
-                        )
-                      ],
-                      1
+                      "router-link",
+                      {
+                        staticClass: "btn btn-small btn-success",
+                        attrs: { to: "/eleven/" + user.id }
+                      },
+                      [_vm._v("his/her 11")]
                     )
-                  ])
-                }),
-                0
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table table-condensed d-none d-md-block" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.gameUsers, function(user, index) {
+                      return _c("tr", { key: user.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.phone_number))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.email))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-small btn-success",
+                                attrs: { to: "/eleven/" + user.id }
+                              },
+                              [_vm._v("his/her 11")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ]
               )
-            ])
-          ])
+            ],
+            2
+          )
         ])
       ])
     ])
@@ -67263,56 +67416,146 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body p-0" }, [
-            _c("table", { staticClass: "table table-condensed" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.gamePlayers, function(player, index) {
-                  return _c("tr", { key: player.id }, [
-                    _c("td", [_vm._v(_vm._s(index + 1))]),
+          _c(
+            "div",
+            { staticClass: "card-body p-0" },
+            [
+              _vm._l(_vm.gamePlayers, function(player, index) {
+                return _c(
+                  "div",
+                  {
+                    key: player.id,
+                    staticClass: "data-con py-1 px-5 d-md-none"
+                  },
+                  [
+                    _c("strong", [_vm._v(_vm._s(index + 1) + ".")]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(player.name))]),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(player.country))]),
+                    _c("span", [_vm._v(_vm._s(player.name))]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(player.country))]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-arrows-alt-h" }),
                     _vm._v(" "),
                     _c(
-                      "td",
-                      [
-                        _c(
-                          "router-link",
+                      "router-link",
+                      {
+                        staticClass: "btn btn-small btn-primary",
+                        attrs: { to: "/playerdetails/" + player.id }
+                      },
+                      [_c("i", { staticClass: "fas fa-id-card" })]
+                    ),
+                    _vm._v(" "),
+                    _vm.authUser.role === "Author"
+                      ? _c(
+                          "button",
                           {
-                            staticClass: "btn btn-small btn-primary",
-                            attrs: { to: "/playerdetails/" + player.id }
+                            staticClass: "btn btn-small btn-danger",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.removePlayer(player.id)
+                              }
+                            }
                           },
-                          [_c("i", { staticClass: "fas fa-id-card" })]
-                        ),
+                          [_c("i", { staticClass: "fas fa-trash-alt" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.authUser.role === "Author"
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-small btn-warning",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#playerScore"
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-microscope" })]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table table-condensed d-none d-md-block" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.gamePlayers, function(player, index) {
+                      return _c("tr", { key: player.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
                         _vm._v(" "),
-                        _vm.authUser.role === "Author"
-                          ? _c(
-                              "button",
+                        _c("td", [_vm._v(_vm._s(player.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(player.country))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
                               {
-                                staticClass: "btn btn-small btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.removePlayer(player.id)
-                                  }
-                                }
+                                staticClass: "btn btn-small btn-primary",
+                                attrs: { to: "/playerdetails/" + player.id }
                               },
-                              [_c("i", { staticClass: "fas fa-trash-alt" })]
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                }),
-                0
+                              [_c("i", { staticClass: "fas fa-id-card" })]
+                            ),
+                            _vm._v(" "),
+                            _vm.authUser.role === "Author"
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-small btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.removePlayer(player.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fas fa-trash-alt" })]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.authUser.role === "Author"
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-small btn-warning",
+                                    attrs: {
+                                      "data-toggle": "modal",
+                                      "data-target": "#playerScore"
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-microscope"
+                                    })
+                                  ]
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ]
               )
-            ])
-          ])
+            ],
+            2
+          )
         ])
       ])
     ]),
@@ -67682,6 +67925,274 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "playerScore",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "playerScoreLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label",
+                          attrs: { for: "message-text" }
+                        },
+                        [_vm._v("Player Run")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.run,
+                            expression: "form.run"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.form.run },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "run", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.run
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.run[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Player Wicket")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.wicket,
+                              expression: "form.wicket"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "wicket",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "0" } }, [
+                            _vm._v("Zero")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("2")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("3")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "4" } }, [
+                            _vm._v("4")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "5" } }, [
+                            _vm._v("5")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "6" } }, [
+                            _vm._v("6")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "7" } }, [
+                            _vm._v("7")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "8" } }, [
+                            _vm._v("8")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9" } }, [
+                            _vm._v("9")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "10" } }, [
+                            _vm._v("10")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "11" } }, [
+                            _vm._v("11")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "12" } }, [
+                            _vm._v("12")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "13" } }, [
+                            _vm._v("13")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "14" } }, [
+                            _vm._v("14")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "15" } }, [
+                            _vm._v("15")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "16" } }, [
+                            _vm._v("16")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.game
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.game[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Player Catch")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.catch,
+                              expression: "form.catch"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "catch",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "0" } }, [
+                            _vm._v("Zero")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("2")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("3")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "4" } }, [
+                            _vm._v("4")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "5" } }, [
+                            _vm._v("5")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "6" } }, [
+                            _vm._v("6")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "7" } }, [
+                            _vm._v("7")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "8" } }, [
+                            _vm._v("8")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9" } }, [_vm._v("9")])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.catch
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.catch[0]))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(6)
+                ]
+              )
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
@@ -67757,6 +68268,52 @@ var staticRenderFns = [
         "h5",
         { staticClass: "modal-title", attrs: { id: "addPlayerLabel" } },
         [_vm._v("Choose your 11")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Submit")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "playerScoreLabel" } },
+        [_vm._v("Player Score")]
       ),
       _vm._v(" "),
       _c(

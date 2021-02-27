@@ -14,7 +14,19 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-                <table class="table table-condensed">
+                <div class="data-con py-1 px-5 d-md-none" v-for="(player, index) in gamePlayers" :key="player.id">
+                  <strong>{{index+1}}.</strong>
+                  <i class="fas fa-arrows-alt-h"></i>
+                  <span>{{player.name}}</span>
+                  <i class="fas fa-arrows-alt-h"></i>
+                  <strong>{{player.country}}</strong>
+                  <i class="fas fa-arrows-alt-h"></i>
+                  <router-link :to="'/playerdetails/' + player.id" class="btn btn-small btn-primary"><i class="fas fa-id-card"></i></router-link>
+                          <button v-if="authUser.role === 'Author'" class="btn btn-small btn-danger" @click.prevent="removePlayer(player.id)"><i class="fas fa-trash-alt"></i></button>
+                          <button data-toggle="modal" data-target="#playerScore" v-if="authUser.role === 'Author'" class="btn btn-small btn-warning"><i class="fas fa-microscope"></i></button>
+                </div>
+                
+                <table class="table table-condensed d-none d-md-block">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
@@ -31,6 +43,7 @@
                       <td>
                           <router-link :to="'/playerdetails/' + player.id" class="btn btn-small btn-primary"><i class="fas fa-id-card"></i></router-link>
                           <button v-if="authUser.role === 'Author'" class="btn btn-small btn-danger" @click.prevent="removePlayer(player.id)"><i class="fas fa-trash-alt"></i></button>
+                          <button data-toggle="modal" data-target="#playerScore" v-if="authUser.role === 'Author'" class="btn btn-small btn-warning"><i class="fas fa-microscope"></i></button>
                       </td>
                     </tr>
                   </tbody>
@@ -112,6 +125,73 @@
                           <label class="form-check-label">{{player.name}}</label>
                         </div>
                           <small class="text-danger" v-if="eFormErrors.user_player">{{eFormErrors.user_player[0]}}</small>
+                      </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+ <!-- player score modal -->
+<div class="modal fade" id="playerScore" tabindex="-1" role="dialog" aria-labelledby="playerScoreLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="playerScoreLabel">Player Score</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form @submit.prevent="">
+      <div class="modal-body">
+        <div class="form-group">
+            <label for="message-text" class="col-form-label">Player Run</label>
+            <input type="text"  class="form-control" v-model="form.run"/>
+            <small class="text-danger" v-if="errors.run">{{errors.run[0]}}</small>
+          </div>
+
+                      <div class="form-group">
+                        <label>Player Wicket</label>
+                        <select class="form-control" v-model="form.wicket">
+                          <option value="0">Zero</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                        </select>
+                      <small class="text-danger" v-if="errors.game">{{errors.game[0]}}</small>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Player Catch</label>
+                        <select class="form-control" v-model="form.catch">
+                          <option value="0">Zero</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                        </select>
+                      <small class="text-danger" v-if="errors.catch">{{errors.catch[0]}}</small>
                       </div>
         
       </div>

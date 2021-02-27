@@ -10,7 +10,17 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-                <table class="table table-condensed">
+                <div class="data-con py-1 px-5 d-md-none" v-for="(user, index) in gameUsers" :key="user.id">
+                  <strong>{{index+1}}.</strong>
+                  <i class="fas fa-arrows-alt-h"></i>
+                  <span>{{user.name}}</span>
+                  <i class="fas fa-arrows-alt-h"></i>
+                  <strong>{{user.phone_number}}</strong>
+                  <i class="fas fa-arrows-alt-h"></i>
+                  <router-link :to="'/eleven/' + user.id" class="btn btn-small btn-success">his/her 11</router-link>
+                </div>
+
+                <table class="table table-condensed d-none d-md-block">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>

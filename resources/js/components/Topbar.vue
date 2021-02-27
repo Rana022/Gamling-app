@@ -26,9 +26,7 @@
     </form>
   </nav>
 </template>
-</div>
  
-
 <script>
 export default {
     
