@@ -10,7 +10,7 @@
         <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Dates of match</h3>
-                <div class="text-right" v-if="authUser.role === 'author'">
+                <div class="text-right" v-if="authUser.role === 'Author'">
                 <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createDate" ><i class="fas fa-calendar-alt"></i></button>
               </div>
               </div>
@@ -28,8 +28,8 @@
                     <tr v-for="(date, index) in dates" :key="date.id">
                       <td>{{index+1}}</td>
                       <td>{{date.date | myTime}}</td>
-                      <td><router-link :to="'/game/' + date.id" class="btn btn-small btn-primary">view matches</router-link>
-                      <button v-if="authUser.role === 'author'" type="button" @click.prevent="deleteDate(date.id)" class="btn btn-small btn-danger">Remove</button>
+                      <td><router-link :to="'/game/' + date.id" class="btn btn-small btn-primary"><i class="fab fa-google-play"></i></router-link>
+                      <button v-if="authUser.role === 'Author'" type="button" @click.prevent="deleteDate(date.id)" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></button>
                       </td>
                     </tr>
                   </tbody>

@@ -8,8 +8,8 @@
               <div class="card-header">
                 <h3 class="card-title">Players</h3>
                 <div class="text-right">
-                  <button v-if="authUser.role === 'user'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#addPlayer">Add 11</button>
-                <button v-if="authUser.role === 'author'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createPlayer" @click="allGames">Add Player</button>
+                  <button v-if="authUser.role === 'User'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#addPlayer"><i class="fas fa-user-plus"></i> 11</button>
+                <button v-if="authUser.role === 'Author'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createPlayer" @click="allGames"><i class="fas fa-user-plus"></i></button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -30,7 +30,7 @@
                       <td>{{player.country}}</td>
                       <td>
                           <router-link :to="'/playerdetails/' + player.id" class="btn btn-small btn-primary"><i class="fas fa-id-card"></i></router-link>
-                          <button v-if="authUser.role === 'author'" class="btn btn-small btn-danger" @click.prevent="removePlayer(player.id)"><i class="fas fa-trash-alt"></i></button>
+                          <button v-if="authUser.role === 'Author'" class="btn btn-small btn-danger" @click.prevent="removePlayer(player.id)"><i class="fas fa-trash-alt"></i></button>
                       </td>
                     </tr>
                   </tbody>

@@ -84,6 +84,7 @@
                   title: 'Signed in successfully'
               })
               this.$router.push('/').catch(()=>{})
+             location.reload();
              })
                .catch(error => this.errors = error.response.data.errors)
           }

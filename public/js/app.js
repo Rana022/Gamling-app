@@ -2528,6 +2528,8 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this.$router.push('/')["catch"](function () {});
+
+        location.reload();
       })["catch"](function (error) {
         return _this.errors = error.response.data.errors;
       });
@@ -65363,7 +65365,7 @@ var render = function() {
                 _vm._v("Dates of match")
               ]),
               _vm._v(" "),
-              _vm.authUser.role === "author"
+              _vm.authUser.role === "Author"
                 ? _c("div", { staticClass: "text-right" }, [_vm._m(0)])
                 : _vm._e()
             ]),
@@ -65389,10 +65391,10 @@ var render = function() {
                               staticClass: "btn btn-small btn-primary",
                               attrs: { to: "/game/" + date.id }
                             },
-                            [_vm._v("view matches")]
+                            [_c("i", { staticClass: "fab fa-google-play" })]
                           ),
                           _vm._v(" "),
-                          _vm.authUser.role === "author"
+                          _vm.authUser.role === "Author"
                             ? _c(
                                 "button",
                                 {
@@ -65405,7 +65407,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("Remove")]
+                                [_c("i", { staticClass: "fas fa-trash-alt" })]
                               )
                             : _vm._e()
                         ],
@@ -66782,7 +66784,7 @@ var render = function() {
             _c("h3", { staticClass: "card-title" }, [_vm._v("Matches")]),
             _vm._v(" "),
             _c("div", { staticClass: "text-right" }, [
-              _vm.authUser.role === "author"
+              _vm.authUser.role === "Author"
                 ? _c(
                     "button",
                     {
@@ -66838,7 +66840,7 @@ var render = function() {
                           [_c("i", { staticClass: "fas fa-users" })]
                         ),
                         _vm._v(" "),
-                        _vm.authUser.role === "author"
+                        _vm.authUser.role === "Author"
                           ? _c(
                               "button",
                               {
@@ -67225,7 +67227,7 @@ var render = function() {
             _c("h3", { staticClass: "card-title" }, [_vm._v("Players")]),
             _vm._v(" "),
             _c("div", { staticClass: "text-right" }, [
-              _vm.authUser.role === "user"
+              _vm.authUser.role === "User"
                 ? _c(
                     "button",
                     {
@@ -67236,11 +67238,14 @@ var render = function() {
                         "data-target": "#addPlayer"
                       }
                     },
-                    [_vm._v("Add 11")]
+                    [
+                      _c("i", { staticClass: "fas fa-user-plus" }),
+                      _vm._v(" 11")
+                    ]
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.authUser.role === "author"
+              _vm.authUser.role === "Author"
                 ? _c(
                     "button",
                     {
@@ -67252,7 +67257,7 @@ var render = function() {
                       },
                       on: { click: _vm.allGames }
                     },
-                    [_vm._v("Add Player")]
+                    [_c("i", { staticClass: "fas fa-user-plus" })]
                   )
                 : _vm._e()
             ])
@@ -67284,7 +67289,7 @@ var render = function() {
                           [_c("i", { staticClass: "fas fa-id-card" })]
                         ),
                         _vm._v(" "),
-                        _vm.authUser.role === "author"
+                        _vm.authUser.role === "Author"
                           ? _c(
                               "button",
                               {
