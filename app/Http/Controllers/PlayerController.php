@@ -18,7 +18,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        return PlayerCollection::collection(Player::all());
+        return PlayerCollection::collection(Player::paginate(5));
     }
 
     /**

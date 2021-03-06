@@ -3227,6 +3227,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['authUser'],
   data: function data() {
@@ -3239,6 +3242,11 @@ __webpack_require__.r(__webpack_exports__);
         player_country: '',
         player_spatiality: ''
       },
+      score: {
+        run: '',
+        wicket: '',
+        "catch": ''
+      },
       eForm: {
         game: this.$route.params.id,
         user: User.id(),
@@ -3246,7 +3254,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       game_id: this.$route.params.id,
       errors: {},
-      eFormErrors: {}
+      eFormErrors: {},
+      scoreErrors: {}
     };
   },
   methods: {
@@ -3298,8 +3307,23 @@ __webpack_require__.r(__webpack_exports__);
         return _this4.eFormErrors = error.response.data.errors;
       });
     },
-    removePlayer: function removePlayer(id) {
+    playerScore: function playerScore(id) {
       var _this5 = this;
+
+      axios.post('/api/player/' + id + '/score', this.score).then(function (res) {
+        if (res.status === 201) {
+          $('#playerScore').modal('hide');
+          Toast.fire({
+            icon: 'success',
+            title: 'Score Added:)'
+          });
+        }
+      })["catch"](function (error) {
+        return _this5.scoreErrors = error.response.data.errors;
+      });
+    },
+    removePlayer: function removePlayer(id) {
+      var _this6 = this;
 
       Swal.fire({
         title: 'Are you sure?',
@@ -3311,7 +3335,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, remove it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios.post('/api/player/' + id, _this5.game_id).then(function (res) {
+          axios.post('/api/player/' + id, _this6.game_id).then(function (res) {
             if (res) {
               Toast.fire({
                 icon: 'success',
@@ -3320,7 +3344,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
 
-          _this5.players(_this5.$route.params.id);
+          _this6.players(_this6.$route.params.id);
         }
       });
     }
@@ -65462,7 +65486,7 @@ var render = function() {
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", { staticClass: "card-title" }, [
-                _vm._v("Dates of match")
+                _vm._v("Dates of match(" + _vm._s(_vm.dates.length) + ")")
               ]),
               _vm._v(" "),
               _vm.authUser.role === "Author"
@@ -66761,7 +66785,11 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("My Eleven(" + _vm._s(_vm.myEleven.length) + ")")
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -66804,7 +66832,7 @@ var render = function() {
                 "table",
                 { staticClass: "table table-condensed d-none d-md-block" },
                 [
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -66849,14 +66877,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("My Eleven")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { staticStyle: { width: "10px" } }, [_vm._v("#")]),
@@ -66895,7 +66915,9 @@ var render = function() {
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [_vm._v("Matches")]),
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Matches(" + _vm._s(_vm.dateGames.length) + ")")
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "text-right" }, [
               _vm.authUser.role === "Author"
@@ -67242,7 +67264,11 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Participants(" + _vm._s(_vm.gameUsers.length) + ")")
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -67282,7 +67308,7 @@ var render = function() {
                 "table",
                 { staticClass: "table table-condensed d-none d-md-block" },
                 [
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -67329,14 +67355,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Participants")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { staticStyle: { width: "10px" } }, [_vm._v("#")]),
@@ -67377,7 +67395,9 @@ var render = function() {
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [_vm._v("Players")]),
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Players(" + _vm._s(_vm.gamePlayers.length) + ")")
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "text-right" }, [
               _vm.authUser.role === "User"
@@ -67483,76 +67503,73 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _c(
-                "table",
-                { staticClass: "table table-condensed d-none d-md-block" },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.gamePlayers, function(player, index) {
-                      return _c("tr", { key: player.id }, [
-                        _c("td", [_vm._v(_vm._s(index + 1))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(player.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(player.country))]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn btn-small btn-primary",
-                                attrs: { to: "/playerdetails/" + player.id }
-                              },
-                              [_c("i", { staticClass: "fas fa-id-card" })]
-                            ),
-                            _vm._v(" "),
-                            _vm.authUser.role === "Author"
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-small btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.removePlayer(player.id)
-                                      }
+              _c("table", { staticClass: "table d-none d-md-block" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.gamePlayers, function(player, index) {
+                    return _c("tr", { key: player.id }, [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(player.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(player.country))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "btn btn-small btn-primary",
+                              attrs: { to: "/playerdetails/" + player.id }
+                            },
+                            [_c("i", { staticClass: "fas fa-id-card" })]
+                          ),
+                          _vm._v(" "),
+                          _vm.authUser.role === "Author"
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-small btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.removePlayer(player.id)
                                     }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-trash-alt" })]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.authUser.role === "Author"
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-small btn-warning",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#playerScore"
                                   },
-                                  [_c("i", { staticClass: "fas fa-trash-alt" })]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.authUser.role === "Author"
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-small btn-warning",
-                                    attrs: {
-                                      "data-toggle": "modal",
-                                      "data-target": "#playerScore"
+                                  on: {
+                                    click: function($event) {
+                                      _vm.playerid = player.id
                                     }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-microscope"
-                                    })
-                                  ]
-                                )
-                              : _vm._e()
-                          ],
-                          1
-                        )
-                      ])
-                    }),
-                    0
-                  )
-                ]
-              )
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-microscope" })]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ])
+                  }),
+                  0
+                )
+              ])
             ],
             2
           )
@@ -67953,6 +67970,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
+                      return _vm.playerScore(_vm.playerid)
                     }
                   }
                 },
@@ -67973,26 +67991,26 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.run,
-                            expression: "form.run"
+                            value: _vm.score.run,
+                            expression: "score.run"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: { type: "text" },
-                        domProps: { value: _vm.form.run },
+                        domProps: { value: _vm.score.run },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.form, "run", $event.target.value)
+                            _vm.$set(_vm.score, "run", $event.target.value)
                           }
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.run
+                      _vm.scoreErrors.run
                         ? _c("small", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.run[0]))
+                            _vm._v(_vm._s(_vm.scoreErrors.run[0]))
                           ])
                         : _vm._e()
                     ]),
@@ -68007,8 +68025,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.wicket,
-                              expression: "form.wicket"
+                              value: _vm.score.wicket,
+                              expression: "score.wicket"
                             }
                           ],
                           staticClass: "form-control",
@@ -68023,7 +68041,7 @@ var render = function() {
                                   return val
                                 })
                               _vm.$set(
-                                _vm.form,
+                                _vm.score,
                                 "wicket",
                                 $event.target.multiple
                                   ? $$selectedVal
@@ -68035,6 +68053,10 @@ var render = function() {
                         [
                           _c("option", { attrs: { value: "0" } }, [
                             _vm._v("Zero")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("1")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "2" } }, [
@@ -68099,9 +68121,9 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm.errors.game
+                      _vm.scoreErrors.wicket
                         ? _c("small", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.game[0]))
+                            _vm._v(_vm._s(_vm.scoreErrors.wicket[0]))
                           ])
                         : _vm._e()
                     ]),
@@ -68116,8 +68138,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.catch,
-                              expression: "form.catch"
+                              value: _vm.score.catch,
+                              expression: "score.catch"
                             }
                           ],
                           staticClass: "form-control",
@@ -68132,7 +68154,7 @@ var render = function() {
                                   return val
                                 })
                               _vm.$set(
-                                _vm.form,
+                                _vm.score,
                                 "catch",
                                 $event.target.multiple
                                   ? $$selectedVal
@@ -68144,6 +68166,10 @@ var render = function() {
                         [
                           _c("option", { attrs: { value: "0" } }, [
                             _vm._v("Zero")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("1")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "2" } }, [
@@ -68178,9 +68204,9 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm.errors.catch
+                      _vm.scoreErrors.catch
                         ? _c("small", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.catch[0]))
+                            _vm._v(_vm._s(_vm.scoreErrors.catch[0]))
                           ])
                         : _vm._e()
                     ])

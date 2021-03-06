@@ -6,7 +6,7 @@
 
                <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Matches</h3>
+                <h3 class="card-title">Matches({{dateGames.length}})</h3>
                 <div class="text-right">
                 <button v-if="authUser.role === 'Author'" type="button" @click.prevent="dates" class="btn btn-info btn-small" data-toggle="modal" data-target="#createGame" >Create Match</button>
               </div>

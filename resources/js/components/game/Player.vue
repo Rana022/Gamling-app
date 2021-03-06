@@ -6,7 +6,7 @@
 
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Players</h3>
+                <h3 class="card-title">Players({{gamePlayers.length}})</h3>
                 <div class="text-right">
                   <button v-if="authUser.role === 'User'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#addPlayer"><i class="fas fa-user-plus"></i> 11</button>
                 <button v-if="authUser.role === 'Author'" type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createPlayer" @click="allGames"><i class="fas fa-user-plus"></i></button>
@@ -26,7 +26,7 @@
                           <button data-toggle="modal" data-target="#playerScore" v-if="authUser.role === 'Author'" class="btn btn-small btn-warning"><i class="fas fa-microscope"></i></button>
                 </div>
                 
-                <table class="table table-condensed d-none d-md-block">
+                <table class="table d-none d-md-block">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
@@ -43,8 +43,9 @@
                       <td>
                           <router-link :to="'/playerdetails/' + player.id" class="btn btn-small btn-primary"><i class="fas fa-id-card"></i></router-link>
                           <button v-if="authUser.role === 'Author'" class="btn btn-small btn-danger" @click.prevent="removePlayer(player.id)"><i class="fas fa-trash-alt"></i></button>
-                          <button data-toggle="modal" data-target="#playerScore" v-if="authUser.role === 'Author'" class="btn btn-small btn-warning"><i class="fas fa-microscope"></i></button>
+                          <button @click="playerid = player.id" data-toggle="modal" data-target="#playerScore" v-if="authUser.role === 'Author'" class="btn btn-small btn-warning"><i class="fas fa-microscope"></i></button>
                       </td>
+                      
                     </tr>
                   </tbody>
                 </table>
@@ -137,7 +138,7 @@
   </div>
 </div>
 
- <!-- player score modal -->
+<!-- player score modal -->
 <div class="modal fade" id="playerScore" tabindex="-1" role="dialog" aria-labelledby="playerScoreLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -147,18 +148,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <form @submit.prevent="">
+        <form @submit.prevent="playerScore(playerid)">
       <div class="modal-body">
         <div class="form-group">
             <label for="message-text" class="col-form-label">Player Run</label>
-            <input type="text"  class="form-control" v-model="form.run"/>
-            <small class="text-danger" v-if="errors.run">{{errors.run[0]}}</small>
+            <input type="text"  class="form-control" v-model="score.run"/>
+            <small class="text-danger" v-if="scoreErrors.run">{{scoreErrors.run[0]}}</small>
           </div>
 
                       <div class="form-group">
                         <label>Player Wicket</label>
-                        <select class="form-control" v-model="form.wicket">
+                        <select class="form-control" v-model="score.wicket">
                           <option value="0">Zero</option>
+                          <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
                           <option value="4">4</option>
@@ -175,13 +177,14 @@
                           <option value="15">15</option>
                           <option value="16">16</option>
                         </select>
-                      <small class="text-danger" v-if="errors.game">{{errors.game[0]}}</small>
+                      <small class="text-danger" v-if="scoreErrors.wicket">{{scoreErrors.wicket[0]}}</small>
                       </div>
 
                       <div class="form-group">
                         <label>Player Catch</label>
-                        <select class="form-control" v-model="form.catch">
+                        <select class="form-control" v-model="score.catch">
                           <option value="0">Zero</option>
+                          <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
                           <option value="4">4</option>
@@ -191,7 +194,7 @@
                           <option value="8">8</option>
                           <option value="9">9</option>
                         </select>
-                      <small class="text-danger" v-if="errors.catch">{{errors.catch[0]}}</small>
+                      <small class="text-danger" v-if="scoreErrors.catch">{{scoreErrors.catch[0]}}</small>
                       </div>
         
       </div>
@@ -220,6 +223,11 @@
               player_country: '',
               player_spatiality: ''
             },
+            score:{
+              run: '',
+              wicket: '',
+              catch: ''
+            },
             eForm:{
               game : this.$route.params.id,
               user: User.id(),
@@ -227,7 +235,8 @@
             },
             game_id : this.$route.params.id,
             errors:{},
-            eFormErrors:{}
+            eFormErrors:{},
+            scoreErrors:{}
 
         }
         },
@@ -267,6 +276,20 @@
                      }
                    })
                    .catch(error => this.eFormErrors = error.response.data.errors)
+            },
+            playerScore(id){
+                 axios.post('/api/player/' + id + '/score', this.score)
+                       .then(res => {
+                         if(res.status === 201){
+                           $('#playerScore').modal('hide')
+                            Toast.fire({
+                            icon: 'success',
+                            title: 'Score Added:)'
+              })
+                         }
+                       })
+                       .catch(error => this.scoreErrors = error.response.data.errors)
+                      
             },
 
             removePlayer(id){

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Score\ScoreResource;
-use App\Models\Player;
 use App\Models\Score;
+use App\Models\Player;
 use Illuminate\Http\Request;
+use App\Http\Resources\Score\ScoreResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class ScoreController extends Controller
 {
@@ -35,9 +36,27 @@ class ScoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Player $player)
     {
-        //
+        $request->validate([
+            'run' => 'required|min:0|max:400',
+            'wicket' => 'required|min:0|max:22',
+            'catch' => 'required|min:0|max:22',
+        ]);
+        if($player->score_id == null){
+            $score = new Score();
+            $score->run = $request->run;
+            $score->wicket = $request->wicket;
+            $score->catch = $request->catch;
+            $score->player_score = 4;
+            $score->save();
+            $player->score_id = $score->id;
+            $player->save();
+            return response([
+                'data' => new ScoreResource($score)
+             ], Response::HTTP_CREATED);
+        }
+
     }
 
     /**

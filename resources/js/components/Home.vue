@@ -9,7 +9,7 @@
         <Boxinfo></Boxinfo>
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Dates of match</h3>
+                <h3 class="card-title">Dates of match({{dates.length}})</h3>
                 <div class="text-right" v-if="authUser.role === 'Author'">
                 <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#createDate" ><i class="fas fa-calendar-alt"></i></button>
               </div>
